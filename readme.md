@@ -12,3 +12,10 @@ The file below titles `app.js` is the web server, which will serve up the client
 3. `npm start`
 
 This will start a server on port 3000, which you can visit to view the client.
+
+## Usage
+
+1. Type a message
+2. Click the button
+3. ???
+4. Profit
