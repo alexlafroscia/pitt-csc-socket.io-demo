@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Socket.io Test App</title>
+</head>
+<body>
+    <h1>Hello Pitt CSC</h1>
+    
+    <ul id="chatbox">
+        
+    </ul>
+    <input type="text" />
+    <button onClick="sendMessage()">Send</button>
+    
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script>
+        var socket = io();
+    
+        sendMessage = function() {
+            var message = $('input').val();
+            socket.emit('message', {message: message} );
+            $('input').val('');
+        }
+        
+        socket.on('message', function(data) {
+            var newElement = $("<li></li").html(data.message);
+            $('#chatbox').append(newElement);
+        });
+        
+    </script>
+</body>
+</html>

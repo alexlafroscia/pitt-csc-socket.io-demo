@@ -1,16 +1,26 @@
-var app, connect, express, fs, router, server;
+var fs, app, http, io;
 fs = require('fs');
-express = require('express');
-app = express();
-router = express.Router();
-
+app = require('express')();
+http = require('http').Server(app);
+io = require('socket.io')(http);
 
 app.get('/', function(req, res) {
-    res.send("Hello World");
+    res.sendFile(__dirname + "/index.html");
 });
 
-server = app.listen(3000, function() {
-  return console.log("listening on port %d", server.address().port);
+io.on('connection', function(socket) {
+    console.log('A user connected');
+    
+    socket.on('message', function(data) {
+        socket.emit('message', data);
+    });
+    
+    socket.on('disconnect', function() {
+       console.log("A user disconnected"); 
+    });
+    
 });
 
-module.exports = app;
+http.listen(3000, function() {
+    console.log("listening on port %d", http.address().port);
+});
