@@ -12,6 +12,8 @@ io.on('connection', function(socket) {
     console.log('A user connected');
     
     socket.on('message', function(data) {
+        // Need to use `io` here to send the event to
+        // all of the connected clients
         io.emit('message', data);
     });
     
